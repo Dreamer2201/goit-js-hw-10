@@ -1,45 +1,36 @@
+import Notiflix from 'notiflix';
+const debounce = require('lodash.debounce');
 import './css/styles.css';
+import {fetchCountries} from './data/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
-
 const inputCountryEl = document.querySelector('#search-box');
 const litsCountresEl = document.querySelector('.country-list');
 
-const URL = 'https://restcountries.com/v2/all?fields=name,capital,population,flag,languages';
-
-inputCountryEl.addEventListener('input', onInputChange);
+inputCountryEl.addEventListener('input', debounce(onInputChange, DEBOUNCE_DELAY));
 
 function onInputChange(e) {
     const searchName = e.target.value.trim().toUpperCase();
-    console.log(searchName);
     fetchCountries (searchName);
-}
-
-function fetchCountries (searchName) {
-    fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            const necessaryCountries = data.filter(contry => contry.name.toUpperCase().includes(searchName));
-            console.log(necessaryCountries);
-            filterNecessaryCountries (necessaryCountries);     
-        })
-        .catch((error) => { console.log(error); })
 }
 
 const filterNecessaryCountries = (array) => {
     if (array.length === 1) {
-        litsCountresEl.innerHTML = "";
-        console.log(array[0]);
+        clearListCountriesEl();
         return createOneItem(array[0]);
-    } else if (array.length < 10) {
+    } else if (array.length < 10 && array.length > 0) {
+        clearListCountriesEl();
         insertContent (array);
     } else if (array.length > 10) {
-        console.log("It's too much");
-    }
-
+        clearListCountriesEl();
+        Notiflix.Notify.failure("Too many matches found. Please enter a more specific name.");
+    } else { 
+        clearListCountriesEl();
+        Notiflix.Notify.failure("Oops, there is no country with that name");}
 }
-
+const clearListCountriesEl = () => {
+    litsCountresEl.innerHTML = "";
+}
 const createOneItem = (item) => {
    const itemResult = `<li>
 <h2>Country: ${item.name}</h2>
@@ -62,3 +53,4 @@ const insertContent = (array) => {
     const result = generateContent(array);
     litsCountresEl.insertAdjacentHTML('beforeend', result);
 }
+export {filterNecessaryCountries};
