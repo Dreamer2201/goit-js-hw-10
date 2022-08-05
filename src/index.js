@@ -31,16 +31,23 @@ const filterNecessaryCountries = (array) => {
 const clearListCountriesEl = () => {
     litsCountresEl.innerHTML = "";
 }
+
 const createOneItem = (item) => {
+
+    const languagesCreate = item.languages.map(function(lng) {
+            return lng.name; 
+        }); 
+
    const itemResult = `<li>
 <h2><span>Country: </span> ${item.name}</h2>
 <p><span>Capital: </span> ${item.capital}</p>
 <p><span>Popolation: </span> ${item.population}</p>
 <p><span>Flag: </span>
 <img src="${item.flag}" alt="flag of ${item.name}" width="50"></p>
-<p><span>Languages: </span> ${item.languages[0].nativeName}</p>
+<p><span>Languages: </span> ${languagesCreate}</p>
 </li>`;
 litsCountresEl.insertAdjacentHTML('beforeend', itemResult);
+
 }
 
 const createListItems = (item) => `<li class="list-item">
