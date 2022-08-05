@@ -33,16 +33,17 @@ const clearListCountriesEl = () => {
 }
 const createOneItem = (item) => {
    const itemResult = `<li>
-<h2>Country: ${item.name}</h2>
-<p>Capital: ${item.capital}</p>
-<p>Popolation: ${item.population}</p>
-<img src="${item.flag}" alt="flag of ${item.name}" width="50">
-<p>Languages: ${item.languages[0].nativeName}</p>
+<h2><span>Country: </span> ${item.name}</h2>
+<p><span>Capital: </span> ${item.capital}</p>
+<p><span>Popolation: </span> ${item.population}</p>
+<p><span>Flag: </span>
+<img src="${item.flag}" alt="flag of ${item.name}" width="50"></p>
+<p><span>Languages: </span> ${item.languages[0].nativeName}</p>
 </li>`;
 litsCountresEl.insertAdjacentHTML('beforeend', itemResult);
 }
 
-const createListItems = (item) => `<li>
+const createListItems = (item) => `<li class="list-item">
 <img src="${item.flag}" alt="flag of ${item.name}" width="50">
 <h2>${item.name}</h2></li>`
 

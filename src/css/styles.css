@@ -18,3 +18,25 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+ul {
+  list-style: none;
+}
+
+h2, p {
+  display: block;
+  margin-left: 10px;
+  color: #212121;
+  font-size: 22px;
+}
+img {
+  display: inline-block;
+  margin: 0;
+}
+span {
+  font-weight: bold;
+}
+.list-item {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
