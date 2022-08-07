@@ -11,10 +11,8 @@ refs.inputCountryEl.addEventListener('input', debounce(onInputChange, DEBOUNCE_D
 
 function onInputChange(e) {
     const searchName = e.target.value.trim().toUpperCase();
-    console.log();
     fetchCountries(searchName)
     .then((data) => {
-        console.log(data);
         filterCountries(data);
     })
     .catch((error) => {
